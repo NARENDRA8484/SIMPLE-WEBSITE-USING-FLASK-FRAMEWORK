@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+  a{
+        color: white!important;font-weight: bold!important;
+      }
+</style>
+<head>
+	<title>USER LIST </title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+{%if current_user.is_authenticated%}
+  <nav style="background-color:#2d82fa" class="container-fluid" style="">
+      <ul class="nav justify-content">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('admin')}}">ADMIN PANEL</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('logout')}}">LOGOUT</a>
+        </li>
+        
+      </ul>
+    </nav>
+<h1 class="text-center" style="margin:40px 0">USERS LIST</h1>
+<form class="container">
+	<div class="container row" style="font-size: 30px;background-color: #2d82fa;color: white;font-weight: bold;margin-bottom: 20px ">
+    <div class="col-lg-1">S.NO</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1">USERNAME</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2">EMAIL ID</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1">PHNO</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2">ACTIONS</div>
+    <div class="col-lg-1"></div>
+  </div>
+  	{%for i in reg%}
+    <div class="container row" style="margin-bottom: 30px">
+    <div class="col-lg-1">{{i.id}}</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1">{{i.name}}</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2">{{i.email}}</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1">{{i.phno}}</div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1"><a href="{{url_for('edit_function',register_id=i.id)}}" class="btn btn-info">EDIT</a></div>
+        <div class="col-lg-1"><a href="{{url_for('delete_function',register_id=i.id)}}" class="btn btn-info">DELETE</a></div>
+  </div>
+       
+  	{%endfor%}
+</div>
+	
+</form>
+<div>
+    {% with messages=get_flashed_messages() %}
+    {%if messages%}
+      {% for message in messages%}
+      
+
+ 		<h3>{{message}}</h3>
+ 	{%endfor%}
+
+    {%endif%}
+    {%endwith%}
+  </div>
+  {%else%}
+  <h1 class="text-center" style="margin-top: 50px;color: red">LOGIN REQUIRED!!!</h1>
+  <div class="text-center">
+  <a class="btn btn-danger text-center mt-5" href="{{url_for('adminlogin')}}">GO TO LOGIN</a>
+  </div>
+  {%endif%}
+</body>
+</html>
