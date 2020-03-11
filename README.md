@@ -7,3 +7,5 @@
 #run db.py to create the database
 
 #Run forms.py in administrator command prompt
+
+#Before Login Just register with your own credentilas
